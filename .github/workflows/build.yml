@@ -22,7 +22,7 @@ jobs:
         run: pip install west
 
       - name: Initialize west
-        run: west init -l .
+        run: west init -l config
 
       - name: Update west modules
         run: west update
@@ -35,7 +35,7 @@ jobs:
           west build -s zmk/app -d build/kyaboard -b xiao_ble -- -DSHIELD=kyaboard -DZMK_CONFIG=${{ github.workspace }}/config
 
       - name: Upload firmware artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2  # ← v3 でエラー出る場合は v2 が安定！
         with:
           name: kyaboard-firmware
-          path: build/kyaboard/*.uf2
+          path: build/kyaboard/zephyr/*.uf2
