@@ -23,8 +23,12 @@ jobs:
           west update
           west build -s zmk/app -d build/kyaboard -b xiao_ble -- -DSHIELD=kyaboard
 
-      - name: Upload firmware
-        uses: actions/upload-artifact@v3
+- name: Upload firmware
+  uses: actions/upload-artifact@v3
+  with:
+    name: firmware
+    path: build/zephyr/zmk.uf2
+
         with:
           name: kyaboard-firmware
           path: build/kyaboard/zephyr/zmk.uf2
