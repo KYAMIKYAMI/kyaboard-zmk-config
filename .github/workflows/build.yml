@@ -22,7 +22,7 @@ jobs:
         run: pip install west
 
       - name: Initialize west
-        run: west init -l config
+        run: west init -l .
 
       - name: Update west modules
         run: west update
@@ -33,9 +33,3 @@ jobs:
       - name: Build firmware
         run: |
           west build -s zmk/app -d build/kyaboard -b xiao_ble -- -DSHIELD=kyaboard -DZMK_CONFIG=${{ github.workspace }}/config
-
-      # - name: Upload firmware artifacts
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: kyaboard-firmware
-      #     path: build/kyaboard/zephyr/*.uf2
