@@ -4,25 +4,27 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: zmkfirmware/zmk-build-arm:2.5
+      image: zmkfirmware/zmk-build-arm:2.4
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build firmware
+      - name: Set up output directory
+        run: mkdir -p build
+
+      - name: Build kyaboard firmware
         run: |
           west init -l config
           west update
-          west build -s zmk/app -d build -b xiao_ble -- -DSHIELD=kyaboard
-          
+          west build -s zmk/app -d build/kyaboard -b xiao_ble -- -DSHIELD=kyaboard
+
       - name: Upload firmware
         uses: actions/upload-artifact@v3
         with:
           name: kyaboard-firmware
-          path: build/zephyr/zmk.uf2
+          path: build/kyaboard/zephyr/zmk.uf2
