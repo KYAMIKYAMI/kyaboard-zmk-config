@@ -34,8 +34,8 @@ jobs:
         run: |
           west build -s zmk/app -d build/kyaboard -b xiao_ble -- -DSHIELD=kyaboard -DZMK_CONFIG=${{ github.workspace }}/config
 
-      - name: Upload firmware artifacts
-        uses: actions/upload-artifact@v2  # ← v3 でエラー出る場合は v2 が安定！
-        with:
-          name: kyaboard-firmware
-          path: build/kyaboard/zephyr/*.uf2
+      # - name: Upload firmware artifacts
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: kyaboard-firmware
+      #     path: build/kyaboard/zephyr/*.uf2
